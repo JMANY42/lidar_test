@@ -15,7 +15,7 @@ class publish_lidar_with_color(Node):
         
         self.get_logger().info("this is working")
         self.pcd_publisher = self.create_publisher(PointCloud2,'pc2_with_color',10)
-        timer_period = 5
+        timer_period = .5
         self.timer = self.create_timer(timer_period,self.timer_callback)
     
     def timer_callback(self):
@@ -25,7 +25,7 @@ class publish_lidar_with_color(Node):
 
 def point_cloud():
 
-    points = np.empty((10000,3),float)
+    points = np.empty((100000,3),float)
 
     for i in range(len(points)):
         points[i][0] = random.uniform(-10.0,10.0)
@@ -36,21 +36,20 @@ def point_cloud():
     print(points)
     print(len(points))
 
-    db = DBSCAN(eps=1.0, min_samples=10).fit(points)
+    db = DBSCAN(eps=.5, min_samples=10).fit(points)
     labels = db.labels_
     print(labels)
 
-    max = -1
+    max = np.max(labels)
     i=0
 
     for x in labels:
-        if x>max:
-            max=x
         if x==-1:
             points = np.delete(points,i,axis=0)
             labels = np.delete(labels,i)
             i-=1
         i+=1
+    print("max: "+str(max))
 
     colors = np.empty((max+2,3),int)
     for color in colors:
