@@ -31,15 +31,11 @@ class publish_lidar_with_color(Node):
 
 def point_cloud(msg):
 
-    points = np.array(list(read_points(msg, skip_nans=True)))
-
-    print(points)
-
+    points = np.array(list(read_points(msg)))
     mask = np.isinf(points).any(axis=1)
 
     points = points[~mask]
     
-
     db = DBSCAN(eps=.5, min_samples=2).fit(points)
     labels = db.labels_
     max = np.max(labels)
@@ -47,6 +43,9 @@ def point_cloud(msg):
 
     points = np.delete(points, np.where(labels == -1),axis=0)
     labels = np.delete(labels, np.where(labels == -1))
+
+    high_points_mask = points[:,2] < 5
+    points = points[high_points_mask]
 
 
     print("max: "+str(max))
