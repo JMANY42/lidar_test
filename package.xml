@@ -17,6 +17,10 @@
   <exec_depend>struct</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>sklearn</exec_depend>
+  <exec_depend>sys</exec_depend>
+  <exec_depend>collections</exec_depend>
+  <exec_depend>ctypes</exec_depend>
+  <exec_depend>math</exec_depend>
   
 
   <export>
