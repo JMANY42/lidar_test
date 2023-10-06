@@ -22,7 +22,8 @@ setup(
         'console_scripts': [
             'print_lidar_output = lidar_test.print_lidar_output:main',
             'detect_box = lidar_test.detect_box:main',
-            'publish_lidar_with_color = lidar_test.publish_lidar_with_color:main'
+            'publish_lidar_with_color = lidar_test.publish_lidar_with_color:main',
+            'real_data_color = lidar_test.real_data_color:main'
 
         ],
     },

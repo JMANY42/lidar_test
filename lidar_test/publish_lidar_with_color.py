@@ -36,20 +36,18 @@ def point_cloud():
     print(points)
     print(len(points))
 
-    db = DBSCAN(eps=.5, min_samples=10).fit(points)
+    db = DBSCAN(eps=.5, min_samples=15).fit(points)
     labels = db.labels_
     print(labels)
 
     max = np.max(labels)
     i=0
 
-    for x in labels:
-        if x==-1:
-            points = np.delete(points,i,axis=0)
-            labels = np.delete(labels,i)
-            i-=1
-        i+=1
+    points = np.delete(points, np.where(labels == -1),axis=0)
+    labels = np.delete(labels, np.where(labels == -1))
     print("max: "+str(max))
+    print(len(points))
+    print(len(labels))
 
     colors = np.empty((max+2,3),int)
     for color in colors:
